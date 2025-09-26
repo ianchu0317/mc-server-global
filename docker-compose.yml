@@ -1,0 +1,31 @@
+services:
+  mc:
+    image: itzg/minecraft-server
+    tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"
+    restart: unless-stopped
+    environment:
+      # Configuracion server
+      EULA: "TRUE"
+      MEMORY: ${MEMORY}
+      # Configuracion juego
+      VERSION: ${VERSION}
+      TYPE: ${TYPE}
+      DIFFICULTY: ${DIFFICULTY}
+      MAX_PLAYERS: ${MAX_PLAYERS}
+      ENABLE_WHITELIST: ${ENABLE_WHITELIST}
+      ONLINE_MODE: ${ONLINE_MODE}
+      ENABLE_AUTOSTOP: ${ENABLE_AUTOSTOP}
+      ENABLE_AUTOPAUSE: ${ENABLE_AUTOPAUSE}
+      # Configuracion 
+    volumes:
+      - ./mc-data:/data
+  
+  playit:
+    image: ghcr.io/playit-cloud/playit-agent:0.15
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
