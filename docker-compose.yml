@@ -1,6 +1,7 @@
 services:
   mc:
     image: itzg/minecraft-server
+    container_name: mc-server
     tty: true
     stdin_open: true
     ports:
@@ -25,6 +26,7 @@ services:
   
   playit:
     image: ghcr.io/playit-cloud/playit-agent:0.15
+    container_name: playit-gg
     network_mode: host
     restart: unless-stopped
     environment:
