@@ -6,6 +6,7 @@ services:
     stdin_open: true
     ports:
       - "25565:25565"
+      - "19132:19132/udp"
     restart: unless-stopped
     environment:
       # Configuracion server
@@ -14,6 +15,10 @@ services:
       # Configuracion juego
       VERSION: ${VERSION}
       TYPE: ${TYPE}
+      # Plugins para usar JAVA / BEDROCK en mismo server
+      PLUGINS: |
+        https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+        https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
       DIFFICULTY: ${DIFFICULTY}
       MAX_PLAYERS: ${MAX_PLAYERS}
       ENABLE_WHITELIST: ${ENABLE_WHITELIST}
@@ -25,7 +30,7 @@ services:
       - ./mc-data:/data
   
   playit:
-    image: ghcr.io/playit-cloud/playit-agent:0.15
+    image: ghcr.io/playit-cloud/playit-agent:0.16
     container_name: playit-gg
     network_mode: host
     restart: unless-stopped
